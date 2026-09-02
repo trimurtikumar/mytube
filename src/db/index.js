@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import {DB_NAME} from "../constants.js";
 
+// 2 chije hmesha dhayan rakhna hai ki connection me hmesha time lgta hai isliye async await aayega
+// and dusra is ki try and catch lgana hai for error handling
+
 const connectDB = async()=>{
     try{
         const connectionInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`);  //database .env me hai aur uska naam .constants me hai dono hi humb=ne yaha de diya aur usko naam de diya connection instance

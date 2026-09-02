@@ -1,16 +1,25 @@
 //require('dotenv').config({path:'./env'})    //for batter consistency ab isko config bhi krna hoga
-import dotenv from "dotenv";
-import connectDB from "./db/index.js"; //to import database from db index.js
-import dns from "dns";
+import dotenv from "dotenv"
+import connectDB from "./db/index.js";  //to import database from db index.js
+import {app} from './app.js'
+import dns from "dns"
+
+
+dotenv.config({
+    path: './.env'
+})
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
-dotenv.config({
-    path:'./.env'
+connectDB() //database import hoo gaya but usko import krne ke liya .env ko bhi import krna hoga
+.then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+    })
 })
-
-connectDB();     //database import hoo gaya but usko import krne ke liya .env ko bhi import krna hoga
-
+.catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
+})
 
 
 
