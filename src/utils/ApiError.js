@@ -13,8 +13,8 @@ class ApiError extends Error {      //Error ye class hai aur hum use extend kr r
         this.success = false;
         this.errors = errors
 
-        if(statck){      //jo bhi backend likh raha hai usko ek tracee mil jaye ki kaha kaha errors hai
-            this.stack = statck
+        if(stack){      //jo bhi backend likh raha hai usko ek tracee mil jaye ki kaha kaha errors hai
+            this.stack = stack
         }else{
             Error.captureStackTrace(this,this.constructor)
         }
