@@ -15,7 +15,8 @@ const uploadOnCloudinary = async (localFilePath) => {
             resource_type : "auto"      //kis type ki file upload hogi , let the cloudinary decide which type of file is coming thats wwhy auto
         })
         //file has been uploaded sussfully
-        console.log("file is uploaded on cloudinary ", response.url);       //console me upload hone ke baad public url mil jayega
+        //console.log("file is uploaded on cloudinary ", response.url);       //console me upload hone ke baad public url mil jayega
+        fs.unlinkSync(localFilePath)        //hum test kr liye file upload ho rahi hai to uper wale ko comment bana diya aur ab file ko unlink krwa diya aur ye Sync hoga ,mtlb iske baad hi kuch hoga , ye back me nhi chalega
         return response;     //console to humare liye hai user ke liye return response hai
     }catch(error){
         fs.unlinkSync(localFilePath)        //remove the locally saved temporary file as the upload operation got failed

@@ -33,7 +33,7 @@ const userSchema = new Schema({
     },
     watchHistory: [
         {
-            type:Schema.Type.ObjectId,
+            type:Schema.Types.ObjectId,
             ref: "Video"
         }
     ],
@@ -50,10 +50,10 @@ const userSchema = new Schema({
 })
 
 userSchema.pre("save", async function (next){       //jbhi data save hoo raha ho use phehle kaam karana hai. hum yaha pe direct call back nhi krte problem aati hai isliye function, ab because encryption me time lgta hai isliye async
-    if(!this.isModified("password")) return next();     //to ab agar pawword wala field modified nhi hua hai then yaha pe bcrypt krne ki jarurat nhi hai
+    if(!this.isModified("password")) return next;     //to ab agar pawword wala field modified nhi hua hai then yaha pe bcrypt krne ki jarurat nhi hai
     
-    this.password =await bcrypt.hash(this.passsword, 10)       //number of hash rounds 10    //ab because ye middileware hai isliye isme next dena hoga aur last me next batana hoga taki values next work me jaaye
-    next()          //ab kya hoo raha hai ki jabhi koi field change hogi tb tb password change hooo jayega jo hum nhi chahte , aur ye problem thik hoo gaya if statement lgane se
+    this.password =await bcrypt.hash(this.password, 10)       //number of hash rounds 10    //ab because ye middileware hai isliye isme next dena hoga aur last me next batana hoga taki values next work me jaaye
+    next          //ab kya hoo raha hai ki jabhi koi field change hogi tb tb password change hooo jayega jo hum nhi chahte , aur ye problem thik hoo gaya if statement lgane se
 })
 
 //to check password we are constructing a method from userSchema(power of mongoose)

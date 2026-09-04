@@ -12,7 +12,7 @@ router.route("/register").post(     //yaha pe aayega aur /user/register  pe chal
             maxCount: 1         //how many files you want to accept currently taking 1 only
         },
         {
-            name:"coverInage",
+            name:"coverImage",
             maxCount: 1
         }
     ]),

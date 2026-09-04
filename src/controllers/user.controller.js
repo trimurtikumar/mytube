@@ -15,9 +15,10 @@ const registerUser = asyncHandler( async (req,res) => {
     //remove password and refresh token field from response
     //check for user creation
     //return response
+    //sb hone ke baad unnessesory console log hata do ya comment bana do
 
     const { fullName, email, username, password } = req.body        //form ya json se data aa raha hai to body se fetch ho jata hai lekin agar url se aa raha hai to alag process hai
-    console.log("email: ",email);
+    //console.log("email: ",email);
 
     if(
         [fullName, email, username, password].some((field) => field?.trim() === "")        //subse fhehle field hai ya nhi , agar hai to kya wo empty hai ya nhi , kiski bhi step pe false aaya then false, ye for each field ke liye check hoo gaya
@@ -29,7 +30,7 @@ const registerUser = asyncHandler( async (req,res) => {
         throw new ApiError(400,"fullName is required")          // aaise if else bana ke saare conditions ek ek krke check krna hota hai , but we have an alternate array option above
     }*/
 
-    const existedUser = User.findOne({      //fineOne hume sbse phehla occurrence find krke dega
+    const existedUser =await User.findOne({      //fineOne hume sbse phehla occurrence find krke dega
         $or: [{ username }, { email }]      //agar user ya email already existed hai then wo existedUser me save ho jayega
     })
 
@@ -38,7 +39,12 @@ const registerUser = asyncHandler( async (req,res) => {
     }
 
     const avatarLocalPath = req.files?.avatar[0]?.path;     //request ki gyi files ki multer se , kyuki user se files multer lega , agar file hai then uska avatar, if avatar hai then uska path
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;     //ye sb kaha se aa raha hai "/register" route se aa raha hai
+    //const coverImageLocalPath = req.files?.coverImage[0]?.path;     //ye sb kaha se aa raha hai "/register" route se aa raha hai
+
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){        //upper wali line error de rhi thi undefined wali , to usko comment bana ke ye block likha gaya hai. isme ache se check kiya gaya hai ki coverimage hai ya nhi
+        coverImageLocalPath = req.files.coverImage[0].path
+    }
 
     if(!avatarLocalPath){
         throw new ApiError(400,"Avatar file is required")
