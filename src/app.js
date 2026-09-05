@@ -13,7 +13,7 @@ app.use(cors({
 app.use(express.json({limit:"16kb"}))   // middleware to take imput as json of max 16kb
 app.use(express.urlencoded({extended:true,limit:"16kb"}))       //urlencoded url ko encode krta hai jaise space % ho jayega ye sb and extended se object ke ander object jaisa kuch hai to wo bhi le skte hai
 app.use(express.static("public"))  //public assets ko store krne ke liye 
-app.use(cookieParser())
+app.use(cookieParser())         //req ke pass cookies ka access chala gaya
 
 
 //routes import

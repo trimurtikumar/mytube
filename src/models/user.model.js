@@ -62,7 +62,7 @@ userSchema.methods.isPasswordCorrect = async function (password){
 }
 
 userSchema.methods.generateAccessToken = function(){
-    return jwt.sign(
+        return jwt.sign(
         {
             _id: this._id,      //ye mondoDB automatically generate kr deta hai, baki sb database se aayega
             email: this.email,
